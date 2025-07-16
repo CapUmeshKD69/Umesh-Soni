@@ -1,6 +1,6 @@
 
-const PROXY = 'https://api.allorigins.win/raw?url=';
-const API_URL = (path) => `${PROXY}${encodeURIComponent('http://43.205.110.71:8000' + path)}`;
+const API_URL = 'http://43.205.110.71:8000';
+
 
 const categoryEl = document.getElementById('category-list');
 const productGridEl = document.getElementById('product-grid');
@@ -8,7 +8,7 @@ const cache = { categories: null, items: {} };
 async function fetchItems(categoryId) {
     if (cache.items[categoryId]) return cache.items[categoryId];
     try {
-        const res = await fetch(API_URL(`/categories/${encodeURIComponent(categoryId)}/items`));
+        const res = await fetch(`${API_URL}/categories/${categoryId}/items`);
 
         const data = await res.json();
         cache.items[categoryId] = Array.isArray(data) ? data : (data.items || []);
@@ -23,7 +23,7 @@ async function fetchItems(categoryId) {
 async function fetchCategories() {
     if (cache.categories) return cache.categories;
     try {
-       const res = await fetch(API_URL('/categories'));
+       const res = await fetch(`${API_URL}/categories`)
 
 
         const data = await res.json();
@@ -38,8 +38,9 @@ async function fetchCategories() {
 };
 function renderCategories(categories) {
     categoryEl.innerHTML = '';
-    let categoryId, name;
+
     categories.forEach(element => {
+            let categoryId, name;
         for (const key in element) {
             if (typeof element[key] === 'string') {
                 categoryId = element[key];
