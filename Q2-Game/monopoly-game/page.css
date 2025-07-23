@@ -113,3 +113,8 @@ transform: rotate(90deg);
 
      
 }
+.color-bar {
+    z-index : 2000;
+    width : 20px;
+    height: 10px;
+}

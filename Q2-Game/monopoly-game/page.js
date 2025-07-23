@@ -2,8 +2,8 @@
 let oldRed = 1;
 let oldGreen = 1;
 let dieFace = 0;
-let redMoney = 10000;
-let greenMoney = 10000;
+let redMoney = 20000;
+let greenMoney = 20000;
 
 document.querySelector('.red-player .money').textContent = `$${redMoney}`;
 document.querySelector('.green-player .money').textContent = `$${greenMoney}`;
@@ -318,7 +318,13 @@ function offerSale(newPosition, landingColor, ownerColor) {
     }
 
     function applyTax() {
-        const tax = Math.floor(asset.price * 0.05);
+        const colorGroup = asset.color;
+const totalnum = assetArray.filter(a => a.color === colorGroup).length;
+const ownerCart = (ownerColor==='red-player') ? redcart : greencart;
+const ownednum = ownerCart.filter(a => a.color === colorGroup).length;
+
+const taxpercent = (ownednum === totalnum) ? 0.20 : 0.05;
+const tax = Math.floor(asset.price * taxpercent);
         if (landingColor === 'red-player') {
             redMoney -= tax;
             greenMoney += tax;
