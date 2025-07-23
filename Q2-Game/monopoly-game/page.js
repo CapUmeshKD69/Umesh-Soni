@@ -183,13 +183,12 @@ document.body.addEventListener('click', (event) => {
         ? 'red-player' 
         : 'green-player';
     
-    // Find the asset
+
     const cart = playerColor === 'red-player' ? redcart : greencart;
     const partiasset = cart.find(item => item.id === parseInt(assetId));
     
     if (!partiasset) return;
     
-    // Update money
     if (playerColor === 'red-player') {
         redMoney += partiasset.price;
         document.querySelector('.red-player .money').textContent = `$${redMoney}`;
